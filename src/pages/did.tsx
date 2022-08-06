@@ -1,4 +1,5 @@
 import { ConnectButton, useAccountModal, useChainModal, useConnectModal } from '@rainbow-me/rainbowkit'
+import axios from 'axios'
 import ConnectWallet from 'components/Connect/ConnectWallet'
 import ThemeToggleButton from 'components/Theme/ThemeToggleButton'
 import ThemeToggleList from 'components/Theme/ThemeToggleList'
@@ -44,27 +45,18 @@ function Main() {
   const { openConnectModal } = useConnectModal()
   const { openAccountModal } = useAccountModal()
   const { openChainModal } = useChainModal()
+
   return (
     <main className={styles.main + ' space-y-6'}>
-      <div className="text-center">
-        <p className="font-medium">Dapp Starter Boilerplate by arisac.eth</p>
-        <p>
-          <a
-            href="https://github.com/arisac/dapp-starter"
-            target="_blank"
-            className="text-sm underline"
-            rel="noreferrer"
-          >
-            https://github.com/arisac/dapp-starter
-          </a>
-        </p>
-      </div>
-
       <div>
         <h4 className="text-sm font-medium text-center">demo: ConnectWalletBtn Full</h4>
         <div className="flex flex-col items-center w-full">
           <ConnectWallet />
         </div>
+      </div>
+
+      <div>
+        <button onClick={() => axios.post('/api/did')}>Create a DID on Polygon</button>
       </div>
 
       <div>
