@@ -35,6 +35,13 @@ function Header() {
   )
 }
 
+type Data = {
+  did: string
+  address: string
+  publicKey: string
+  privateKey: string
+}
+
 function Main() {
   const { address, isConnected, connector } = useAccount()
   const { chain, chains } = useNetwork()
@@ -46,6 +53,8 @@ function Main() {
   const { openAccountModal } = useAccountModal()
   const { openChainModal } = useChainModal()
 
+  const [data, setData] = useState<Data>({ did: '', address: '', publicKey: '', privateKey: '' })
+
   return (
     <main className={styles.main + ' space-y-6'}>
       <div>
@@ -55,8 +64,19 @@ function Main() {
         </div>
       </div>
 
-      <div>
-        <button onClick={() => axios.post('/api/did')}>Create a DID on Polygon</button>
+      <div className="flex flex-col items-center w-full space-y-2">
+        <button
+          className="btn"
+          onClick={() =>
+            axios.post('/api/did').then(res => {
+              console.log(res)
+              setData(res.data.data)
+            })
+          }
+        >
+          Create a DID on Polygon
+        </button>
+        <div>Your DID is: {data.did}</div>
       </div>
 
       <div>
